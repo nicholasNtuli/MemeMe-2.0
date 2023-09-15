@@ -34,7 +34,12 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
     @objc func dismissCurrentViewController() {
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: {
+            // Navigate back to the tab bar view controller
+            if let navigationController = self.navigationController {
+                navigationController.popToRootViewController(animated: true)
+            }
+        })
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -176,12 +181,13 @@ class MemeEditorViewController: UIViewController, UIImagePickerControllerDelegat
             }
             
             self?.save(meme: meme)
-            self!.dismiss(animated: true, completion: nil)
+            
+            self?.navigationController?.popViewController(animated: true)
         }
         
         present(activityViewController, animated: true, completion: nil)
     }
-    
+
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let editedImage = info[.editedImage] as? UIImage {
             imagePickerView.image = editedImage

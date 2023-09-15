@@ -14,12 +14,14 @@ class TabBarController: UITabBarController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add Meme", style: .plain, target: self, action: #selector(newImage))
     }
     
-    @objc func newImage(){
-        let storyboard = UIStoryboard (name: "Main", bundle: nil)
-        let newImageVC = storyboard.instantiateViewController(withIdentifier: "AddMeme")as! MemeEditorViewController
-        
-        let navigationController = UINavigationController()
-        navigationController.viewControllers = [newImageVC]
-        self.navigationController?.present(navigationController, animated: true, completion: nil)
+    @objc func newImage() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let newImageVC = storyboard.instantiateViewController(withIdentifier: "AddMeme") as! MemeEditorViewController
+
+        newImageVC.hidesBottomBarWhenPushed = true
+
+        self.navigationController?.pushViewController(newImageVC, animated: true)
     }
+
+
 }
